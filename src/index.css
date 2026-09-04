@@ -207,6 +207,33 @@
     box-shadow: 0 18px 42px -20px rgb(0 0 0 / 0.42);
 }
 
+/* Unter `lg` steht die Kurzübersicht einspaltig, und jede Aufnahme hat die
+   ganze Seitenbreite für sich. Den vier Ansichten, die breiter als hoch sind,
+   bekommt das gut; dem Metrikpanel, der einzigen hochkanten, nicht — auf einem
+   Telefon stand es anderthalbmal so hoch wie seine Nachbarn und nahm den
+   halben Bildschirm ein. Die Regel deckelt die Breite deshalb auf das Maß, das
+   die Aufnahme quadratisch machte: Keine wird höher, als ihre Spalte breit
+   ist. Damit steht das Metrikpanel so hoch wie der Datensatzdialog darüber,
+   der von sich aus quadratisch ist.
+
+   Gerechnet wird über die Höhe und nicht über die Breite: `min(36rem, 100%)`
+   ist genau die Höhe, die eine quadratische Aufnahme hier bekäme — die volle
+   Spalte, gedeckelt durch `max-w-xl`, unter dem auch die übrigen stehen. Mal
+   dem Seitenverhältnis ergibt das die Breite, bei der die hochkante Aufnahme
+   ebenso hoch ausfällt. Ein Deckel allein auf die Breite träfe es nicht: Sobald
+   die Spalte breiter wird als `max-w-xl`, stünden die anderen still und die
+   hochkante wüchse weiter.
+
+   Das Seitenverhältnis bringt die Komponente aus den Maßen der Aufnahme selbst
+   mit; die Regel gilt so auch für eine hochkante Ansicht, die es hier noch
+   nicht gibt. Ab `lg` teilen sich Bild und Text die Zeile, und wie breit das
+   Bild dort steht, entscheidet die Komponente. */
+@media (width < 64rem) {
+    .hochkant {
+        max-width: calc(var(--seitenverhaeltnis) * min(36rem, 100%));
+    }
+}
+
 /* Die Spur des Karussells. Zwei Dinge stehen hier und nicht als Klassen an der
    Komponente: Für das Ausblenden der Bildlaufleiste bringt Tailwind nichts mit,
    und ob das Blättern gleitet oder springt, soll die Komponente gar nicht erst
