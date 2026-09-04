@@ -30,7 +30,7 @@ const FEATURES = [
         height: 1305,
         alt: "Die Wahrheitsmatrix eines auf MNIST trainierten Modells, zehn Klassen, die Diagonale eingefärbt",
         title: "Wahrheitsmatrix und Inferenzpanel",
-        text: "Nach dem Training zeigt die Wahrheitsmatrix, welche Klasse mit welcher verwechselt wird; eine Genauigkeit von 89,0 % sagt darüber nichts. Das Inferenzpanel legt daneben einzelne Beispiele durch das Modell und nennt die Wahrscheinlichkeit für jede Klasse. Dort lassen sich auch eigene Daten einsetzen — ein selbst aufgenommenes Foto hochladen oder bei Tabellendaten einzelne Merkmale verändern und sehen, woran die Zuordnung hängt.",
+        text: "Nach dem Training zeigt die Wahrheitsmatrix, welche Klasse mit welcher verwechselt wird; die Genauigkeit als einzelne Zahl sagt darüber nichts. Das Inferenzpanel legt daneben einzelne Beispiele durch das Modell und nennt die Wahrscheinlichkeit für jede Klasse. Dort lassen sich auch eigene Daten einsetzen — ein selbst aufgenommenes Foto hochladen oder bei Tabellendaten einzelne Merkmale verändern und sehen, woran die Zuordnung hängt.",
         inset: {
             image: "inferenz",
             width: 900,
