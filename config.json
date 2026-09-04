@@ -1,0 +1,13 @@
+{
+    "site": {
+        "title": "Model Playground",
+        "shortTitle": "MP",
+        "description": "Neuronale Netze bauen, trainieren und verstehen — im Browser, ohne Installation",
+        "lang": "de"
+    },
+    "playgroundUrl": "https://mp.witt.ml",
+    "docsUrl": "https://docs.witt.ml",
+    "repoUrl": "https://gitlab.com/clemenswitt/model-playground",
+    "docsRepoUrl": "https://gitlab.com/clemenswitt/model-playground-docs",
+    "port": 3005
+}

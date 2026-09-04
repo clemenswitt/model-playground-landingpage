@@ -1,0 +1,229 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-2xl: calc(var(--radius) + 8px);
+    --radius-3xl: calc(var(--radius) + 12px);
+    --radius-4xl: calc(var(--radius) + 16px);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* Der Hintergrund des Eingangsbereichs: ein feines Raster, das zu den Rändern
+   hin ausblendet. Die Maske hält es aus der Mitte heraus, wo Überschrift und
+   Kachel stehen. */
+.hero-grid {
+    background-image:
+        linear-gradient(90deg, var(--border) 1px, transparent 1px),
+        linear-gradient(var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(80% 60% at 50% 40%, #000 40%, transparent 100%);
+    opacity: 0.6;
+}
+
+/* Die Kachel mit dem Bildschirmfoto. `HeroTile.tsx` schreibt nur die Lage des
+   Zeigers als --x und --y (je 0 bis 1) auf das Element; Neigung und Glanz
+   werden hier daraus gerechnet.
+
+   Die Ruhelage ist eine feste leichte Neigung: die Kachel steht damit auch
+   unberührt im Raum und nicht flach auf der Seite. Der Zeiger lenkt aus ihr
+   aus, das Verlassen federt in sie zurück. Dafür genügen zwei Dauern — die
+   kurze im überfahrenen Zustand folgt der Maus, die lange darüber greift beim
+   Austritt, wenn die Regel wieder wegfällt. Die kurze ist bewusst nicht sehr
+   kurz: weil sie bei jeder Zeigerbewegung neu ansetzt, wird aus dem Nachlaufen
+   eine Dämpfung, und die Kachel folgt weich statt sprunghaft.
+
+   Der Schatten bleibt fest. Ein weichgezeichneter Schatten dieser Größe lässt
+   sich nicht kompositieren; würde er mitwandern, zeichnete ihn der Browser in
+   jedem Bild neu, und genau das hat die Bewegung haken lassen. `will-change`
+   hebt die Kachel dafür auf eine eigene Ebene. */
+.tile {
+    --x: 0.5;
+    --y: 0.5;
+    transform: perspective(2000px) rotateX(2deg);
+    box-shadow: 0 28px 64px -28px rgb(0 0 0 / 0.45);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+}
+
+.tile:hover {
+    transform: perspective(2000px) rotateX(calc(2deg + (0.5 - var(--y)) * 5deg))
+        rotateY(calc((var(--x) - 0.5) * 6deg)) scale(1.01);
+    transition-duration: 0.25s;
+}
+
+/* Der Glanz liegt als eigene Ebene über dem Bild: eine weiche helle Scheibe an
+   der Stelle des Zeigers. `overlay` hellt das Bild darunter auf, statt es zu
+   verdecken — die Zeichnung bleibt lesbar. Sie ist weit und schwach gehalten;
+   ein enger, heller Fleck läse sich als Lichtreflex auf einer Glasscheibe und
+   nicht als Auslenkung einer Kachel. */
+.tile-sheen {
+    background: radial-gradient(
+        55% 75% at calc(var(--x) * 100%) calc(var(--y) * 100%),
+        rgb(255 255 255 / 0.22),
+        transparent 70%
+    );
+    opacity: 0;
+    mix-blend-mode: overlay;
+    transition: opacity 0.4s ease;
+}
+
+.tile:hover .tile-sheen {
+    opacity: 1;
+}
+
+/* Ohne Zeigergerät gibt es kein Überfahren, und wer Bewegung abbestellt hat,
+   soll keine sehen. In beiden Fällen bleibt die Kachel in ihrer Ruhelage; sie
+   ist dann ein gerahmtes Bild, das zum Playground führt. */
+@media (prefers-reduced-motion: reduce), (hover: none) {
+    .tile:hover {
+        transform: perspective(2000px) rotateX(2deg);
+    }
+
+    .tile-sheen {
+        display: none;
+    }
+}
+
+/* Die Bildschirmfotos der Übersicht stehen ohne Rahmen auf der Seite: was sie
+   von ihr abhebt, ist allein ihr Schatten. Es ist derselbe wie unter der
+   Kachel im Eingangsbereich, nur flacher gehalten — die Aufnahmen sind
+   kleiner, und ein Schatten, der zu ihnen im selben Verhältnis stünde, hübe
+   sie weiter von der Seite ab als die Kachel, die der Seite ihren Ton gibt. */
+.aufnahme {
+    box-shadow: 0 18px 42px -20px rgb(0 0 0 / 0.42);
+}
+
+/* Die Spur des Karussells. Zwei Dinge stehen hier und nicht als Klassen an der
+   Komponente: Für das Ausblenden der Bildlaufleiste bringt Tailwind nichts mit,
+   und ob das Blättern gleitet oder springt, soll die Komponente gar nicht erst
+   fragen müssen. Sie ruft `scrollBy` ohne `behavior` auf; was daraus wird,
+   entscheidet die Medienabfrage darunter — dieselbe, die auch die Kachel
+   stillstellt. Sie greift ebenso, wenn der Browser eine angetippte Karte von
+   sich aus ins Bild holt. */
+.karussell {
+    scrollbar-width: none;
+}
+
+.karussell::-webkit-scrollbar {
+    display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .karussell {
+        scroll-behavior: smooth;
+    }
+}
