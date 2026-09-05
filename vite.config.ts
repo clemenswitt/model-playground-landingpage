@@ -2,6 +2,7 @@ import path from "path"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig, type Plugin } from "vite"
+import svgr from "vite-plugin-svgr"
 
 import config from "./config.json"
 
@@ -45,7 +46,7 @@ function siteMetadata(): Plugin {
 }
 
 export default defineConfig({
-    plugins: [react(), tailwindcss(), siteMetadata()],
+    plugins: [react(), tailwindcss(), svgr(), siteMetadata()],
     // Only the built site is pinned to the configured port; `npm run dev` keeps
     // Vite's own default so a running container and a dev server can coexist.
     preview: {
