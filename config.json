@@ -1,8 +1,7 @@
 {
     "site": {
         "title": "Model Playground",
-        "shortTitle": "MP",
-        "description": "Neuronale Netze bauen, trainieren und verstehen — im Browser, ohne Installation",
+        "description": "Virtuelle Lernumgebung, in der Lernende mit der Struktur neuronaler Netze experimentieren. Kein Code, keine Installation, keine Anmeldung",
         "lang": "de"
     },
     "playgroundUrl": "https://mp.witt.ml",

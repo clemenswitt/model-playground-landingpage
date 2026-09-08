@@ -21,8 +21,7 @@ versioniert und dokumentiert sind. Dieselbe Regelung gilt in der Dokumentation.
 {
     "site": {
         "title": "Model Playground",
-        "shortTitle": "MP",
-        "description": "Neuronale Netze bauen, trainieren und verstehen — im Browser, ohne Installation",
+        "description": "Virtuelle Lernumgebung, in der Lernende mit der Struktur neuronaler Netze experimentieren. Kein Code, keine Installation, keine Anmeldung",
         "lang": "de"
     },
     "playgroundUrl": "https://mp.witt.ml",
@@ -36,7 +35,6 @@ versioniert und dokumentiert sind. Dieselbe Regelung gilt in der Dokumentation.
 | Schlüssel | Wirkung |
 | --- | --- |
 | `site.title` | Name im Kopfbereich und im Seitentitel |
-| `site.shortTitle` | Kurzform für schmale Fenster |
 | `site.description` | `description`-Metatag der Seite |
 | `site.lang` | Sprachkennzeichen des `html`-Elements |
 | `playgroundUrl` | Playground-Instanz, auf die alle Schaltflächen und die Kachel verweisen |

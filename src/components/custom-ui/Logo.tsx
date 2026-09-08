@@ -12,8 +12,8 @@ import { config } from "@/lib/config"
  * the three sites carry one brand. The canvas panel the playground wraps around
  * it is left out — here the header already provides the surface.
  *
- * Only the wordmark gives way: below the `sm` breakpoint the short title takes
- * its place, because the header still has to hold the two jump-off links.
+ * The wordmark stays at every width; the header holds it alongside the two
+ * jump-off links.
  *
  * @returns {JSX.Element} Link to the start page, showing mark and wordmark.
  */
@@ -24,8 +24,7 @@ export function Logo() {
             className="flex items-center gap-3 whitespace-nowrap text-xl font-stretch-110%"
         >
             <LogoMark className="h-7 w-auto shrink-0 aspect-45/32" />
-            <span className="hidden select-none sm:inline">{config.site.title}</span>
-            <span className="select-none sm:hidden">{config.site.shortTitle}</span>
+            <span className="select-none">{config.site.title}</span>
         </a>
     )
 }

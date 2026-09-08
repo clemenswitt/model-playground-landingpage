@@ -16,8 +16,6 @@ export type Config = {
     site: {
         /** Voller Name im Kopfbereich und im Seitentitel. */
         title: string
-        /** Kurzform für schmale Fenster. */
-        shortTitle: string
         /** Kurzbeschreibung für den `description`-Metatag. */
         description: string
         /** Sprachkennzeichen des `html`-Elements, z. B. `de`. */
