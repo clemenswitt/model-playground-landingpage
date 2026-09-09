@@ -1,3 +1,5 @@
+import { useRef } from "react"
+
 import { FeatureRows } from "@/components/custom-ui/FeatureRows"
 import { Hero } from "@/components/custom-ui/Hero"
 import { LandingFooter } from "@/components/custom-ui/LandingFooter"
@@ -13,11 +15,13 @@ import { TaskCarousel } from "@/components/custom-ui/TaskCarousel"
  * @returns {JSX.Element} The landing page.
  */
 export default function App() {
+    const brand = useRef<HTMLDivElement>(null)
+
     return (
         <div className="flex min-h-svh flex-col bg-background">
-            <LandingHeader />
+            <LandingHeader brand={brand} />
             <main className="flex-1">
-                <Hero />
+                <Hero brand={brand} />
                 <FeatureRows />
                 <TaskCarousel />
             </main>

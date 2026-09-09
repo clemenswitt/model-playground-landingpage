@@ -1,5 +1,7 @@
 import { ArrowUpRight, Check, Play } from "lucide-react"
+import type { RefObject } from "react"
 
+import { BrandPill } from "@/components/custom-ui/BrandPill"
 import { Button } from "@/components/ui/button"
 import { HeroTile } from "@/components/custom-ui/HeroTile"
 import { RotatingText } from "@/components/custom-ui/RotatingText"
@@ -26,21 +28,27 @@ import { config } from "@/lib/config"
  * them. The conditions take turns in the upper line, which puts each of them in
  * front of a reader who would have skimmed a list of three.
  *
+ *
+ * @param {object} props Component props.
+ * @param {RefObject<HTMLDivElement | null>} props.brand Handle on the brand
+ *   chip, passed on to the header.
  * @returns {JSX.Element} Hero section.
  */
-export function Hero() {
+export function Hero({ brand }: { brand: RefObject<HTMLDivElement | null> }) {
     return (
-        <section className="relative overflow-hidden px-4 pt-16 pb-20">
+        <section className="relative overflow-hidden px-4 pt-12 pb-20 sm:pt-16">
             <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
 
             <div className="relative mx-auto max-w-[1400px] text-center">
-                <h1 className="mx-auto max-w-[24ch] text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+                <BrandPill ref={brand} />
+
+                <h1 className="mx-auto mt-5 max-w-[24ch] text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
                     Neuronale Netze entwerfen, trainieren und testen.
                 </h1>
 
                 <p className="mt-6 text-muted-foreground sm:text-xl">
-                    <span className="bg-card text-foreground inline-flex items-center gap-2 rounded-full border px-5 py-2 text-lg font-medium shadow-sm sm:text-xl">
-                        <Check className="text-muted-foreground size-5" />
+                    <span className="bg-card text-foreground inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-base font-medium shadow-sm sm:text-lg">
+                        <Check className="text-muted-foreground size-4" />
                         <RotatingText
                             items={[
                                 "Kein Code.",
@@ -52,7 +60,7 @@ export function Hero() {
                     <span className="mt-4 block">Direkt im Browser loslegen.</span>
                 </p>
 
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <div className="mt-11 flex flex-wrap items-center justify-center gap-3">
                     <Button size="lg" asChild>
                         <a href={config.playgroundUrl} target="_blank">
                             <Play />

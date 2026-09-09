@@ -1,4 +1,5 @@
 import LogoMark from "@/assets/logo.svg?react"
+import { cn } from "@/lib/utils"
 import { config } from "@/lib/config"
 
 /**
@@ -15,15 +16,21 @@ import { config } from "@/lib/config"
  * The wordmark stays at every width; the header holds it alongside the two
  * jump-off links.
  *
+ * @param {object} props Component props.
+ * @param {string} [props.className] Extra classes, e.g. the smaller type size
+ *   the brand chip sets.
  * @returns {JSX.Element} Link to the start page, showing mark and wordmark.
  */
-export function Logo() {
+export function Logo({ className }: { className?: string }) {
     return (
         <a
             href="/"
-            className="flex items-center gap-3 whitespace-nowrap text-xl font-stretch-110%"
+            className={cn(
+                "flex items-center gap-[0.6em] whitespace-nowrap text-xl font-stretch-110%",
+                className,
+            )}
         >
-            <LogoMark className="h-7 w-auto shrink-0 aspect-45/32" />
+            <LogoMark className="h-[1.4em] w-auto shrink-0 aspect-45/32" />
             <span className="select-none">{config.site.title}</span>
         </a>
     )
