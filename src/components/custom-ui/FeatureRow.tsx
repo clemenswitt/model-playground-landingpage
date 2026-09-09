@@ -108,10 +108,9 @@ function Screenshot({
                 fourth row for a panel this narrow would stretch the section
                 without adding a beat. A third of the width is what the tall
                 panel can take before it reaches the top edge of the wide
-                matrix. Below `sm` it would cover the matrix rather than sit
-                on it, so it goes. */}
+                matrix. */}
             {inset && (
-                <div className="pointer-events-none absolute right-4 bottom-4 hidden w-[34%] sm:block">
+                <div className="pointer-events-none relative mx-auto mt-4 w-3/5 sm:absolute sm:right-4 sm:bottom-4 sm:mt-0 sm:w-[34%]">
                     <img
                         src={`/${inset.image}-light.webp`}
                         alt={inset.alt}
