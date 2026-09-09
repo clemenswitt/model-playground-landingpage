@@ -24,10 +24,8 @@ versioniert und dokumentiert sind. Dieselbe Regelung gilt in der Dokumentation.
         "description": "Virtuelle Lernumgebung, in der Lernende mit der Struktur neuronaler Netze experimentieren. Kein Code, keine Installation, keine Anmeldung",
         "lang": "de"
     },
-    "playgroundUrl": "https://mp.witt.ml",
-    "docsUrl": "https://docs.witt.ml",
-    "repoUrl": "https://gitlab.com/clemenswitt/model-playground",
-    "docsRepoUrl": "https://gitlab.com/clemenswitt/model-playground-docs",
+    "playgroundUrl": "https://app.model-playground.dev",
+    "docsUrl": "https://docs.model-playground.dev",
     "port": 3005
 }
 ```
@@ -39,7 +37,6 @@ versioniert und dokumentiert sind. Dieselbe Regelung gilt in der Dokumentation.
 | `site.lang` | Sprachkennzeichen des `html`-Elements |
 | `playgroundUrl` | Playground-Instanz, auf die alle Schaltflächen und die Kachel verweisen |
 | `docsUrl` | Instanz der Dokumentation |
-| `repoUrl`, `docsRepoUrl` | Quelltexte, verlinkt in der Fußzeile |
 | `port` | Port für `npm run preview` und den Container |
 
 Die Werte werden beim Build eingesetzt: In der Anwendung über

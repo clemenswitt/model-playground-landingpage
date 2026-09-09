@@ -25,10 +25,6 @@ export type Config = {
     playgroundUrl: string
     /** Adresse der Dokumentation, auf die die Seite verweist. */
     docsUrl: string
-    /** Quelltext des Playgrounds, verlinkt in der Fußzeile. */
-    repoUrl: string
-    /** Quelltext der Dokumentation, verlinkt in der Fußzeile. */
-    docsRepoUrl: string
     /** Port für Vorschau (`npm run preview`) und Container. */
     port: number
 }
