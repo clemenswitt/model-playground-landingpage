@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react"
+import type { CSSProperties, ReactNode } from "react"
 
 import { Screencast } from "@/components/custom-ui/Screencast"
 
@@ -16,7 +16,8 @@ type Shot = {
 
 type FeatureRowProps = Shot & {
     title: string
-    text: string
+    /** A node rather than a string: two of the four paragraphs carry a link. */
+    text: ReactNode
     /** Text left, image right. The section alternates it from row to row. */
     flipped: boolean
     /** Two thirds for the shot rather than the usual three fifths. */
@@ -184,7 +185,14 @@ export function FeatureRow({
         <div className={`grid items-center gap-8 lg:gap-16 ${columns}`}>
             <div>
                 <h3 className="text-xl font-medium tracking-tight sm:text-2xl">{title}</h3>
-                <p className="mt-4 max-w-[52ch] text-pretty text-muted-foreground">{text}</p>
+                {/* German runs long — `Klassenverteilung`, `Generalisierungsfähigkeit`
+                    — and in a 40 % column such a word drops to the next line
+                    whole and leaves a gap behind it. `hyphens-auto` lets the
+                    browser break it at the syllable, using the patterns for the
+                    `de` that `index.html` sets on the document. */}
+                <p className="mt-4 max-w-[52ch] hyphens-auto text-pretty text-muted-foreground">
+                    {text}
+                </p>
             </div>
 
             {/* The text precedes the image in the markup of every row. In one

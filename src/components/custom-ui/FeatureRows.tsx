@@ -9,7 +9,22 @@ const FEATURES = [
         alt: "Der Vorschaudialog des MNIST-Datensatzes mit Beschreibung, Klassenverteilung und einer Tabelle einzelner Ziffernbilder",
         motion: true,
         title: "Datensätze laden und untersuchen",
-        text: "Lernende greifen auf vier vorbereitete Datensätze zu oder suchen unter mehr als 500 000 Einträgen auf Hugging Face. Vor dem Hinzufügen zeigt die Vorschau Klassenverteilung, Form der Eingabe und einzelne Beispiele. Wer eigene Daten nutzen will, veröffentlicht sie auf Hugging Face und lädt sie von dort.",
+        text: (
+            <>
+                Über die{" "}
+                <a
+                    href="https://huggingface.co/datasets"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline underline-offset-4 hover:text-foreground"
+                >
+                    Hugging-Face-Datasets-API
+                </a>{" "}
+                stehen mehr als 500&#8239;000 Datensätze zur Auswahl; eigene Datensätze können auf diese
+                Weise ebenso importiert werden. Vor dem Hinzufügen können Datensätze hinsichtlich ihrer
+                Klassenverteilung und einzelner Beispiele analysiert werden.
+            </>
+        ),
     },
     {
         image: "metriken",
@@ -18,8 +33,8 @@ const FEATURES = [
         alt: "Das Panel der Trainingsmetriken im Reiter Accuracy, mit den Kurven für Trainings- und Validierungsgenauigkeit über 50 Epochen",
         motion: true,
         threeQuarters: true,
-        title: "Trainingsverläufe lesen",
-        text: "Während ein Lauf rechnet, füllen sich die Reiter für Genauigkeit und Verlust Epoche für Epoche, je eine Kurve für die Trainings- und eine für die Validierungsdaten. Am Verlauf lesen Lernende ab, ob ein Modell noch lernt, bereits gesättigt ist oder sich an die Trainingsdaten anpasst.",
+        title: "Trainingsverläufe analysieren",
+        text: "Modellgenauigkeit und -verlust werden während des Trainings epochenweise aufgezeichnet, getrennt für Trainings- und Validierungsdaten. Ein wachsender Abstand zwischen beiden Kurven zeigt Überanpassung an, ein flacher Verlauf auf niedrigem Niveau eine zu geringe Modellkapazität oder eine unpassend gewählte Lernrate.",
     },
     {
         image: "wahrheitsmatrix",
@@ -27,8 +42,8 @@ const FEATURES = [
         height: 1318,
         alt: "Die Wahrheitsmatrix eines auf CIFAR-10 trainierten Modells, zehn Klassen von airplane bis truck, die Diagonale eingefärbt",
         wide: true,
-        title: "Wahrheitsmatrix und Inferenzpanel auswerten",
-        text: "Nach dem Lauf steht in der Wahrheitsmatrix, welche Klassen sauber getroffen und welche als eine andere ausgegeben werden. Das Inferenzpanel schickt einzelne Beispiele durch das Modell und gibt je Klasse einen Prozentwert aus. Ein eigenes Bild oder veränderte Merkmalswerte zeigen, wie weit ein Modell trägt.",
+        title: "Wahrheitsmatrix und Inferenzpanel",
+        text: "Die Wahrheitsmatrix schlüsselt die erreichte Genauigkeit eines trainierten Modells nach Klassen auf und zeigt, welche zuverlässig getrennt und welche miteinander verwechselt werden. Das Inferenzpanel stellt für ein gewähltes Beispiel die vollständige Modellausgabe über alle Klassen dar. Mit eigenen Bildern oder selbst gewählten Merkmalswerten kann die Generalisierungsfähigkeit trainierter Modelle überprüft werden.",
         inset: {
             image: "inferenz",
             width: 600,
@@ -44,8 +59,30 @@ const FEATURES = [
         alt: "Die Zeichenfläche mit dem trainierten MNIST-Modell, darüber der Dialog „Modellstruktur teilen“ mit dem QR-Code und dem Link zu genau diesem Aufbau",
         motion: true,
         wide: true,
-        title: "Modelle als Link weitergeben",
-        text: "Ein QR-Code im Teilen-Dialog gibt einen ganzen Modellaufbau weiter. Der Link daneben trägt Aufbau und gewählten Datensatz auf jede andere Zeichenfläche. Der Export legt Aufbau und trainierte Gewichte in zwei Dateien, aus denen sich die Gewichte in TensorFlow weiterverwenden lassen.",
+        title: "Modelle teilen",
+        text: (
+            <>
+                Ein Modellaufbau samt gewähltem Datensatz lässt sich als Link oder QR-Code
+                weitergeben und auf einem anderen Gerät fortführen. Über die Exportfunktion
+                können trainierte Modelle als Archiv gesichert und in Frameworks wie{" "}
+                <a
+                    href="https://www.tensorflow.org/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline underline-offset-4 hover:text-foreground"
+                >
+                    TensorFlow
+                </a>{" "} oder <a
+                    href="https://pytorch.org/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline underline-offset-4 hover:text-foreground"
+                >
+                    PyTorch
+                </a>{" "}
+                weiterverwendet werden.
+            </>
+        ),
     },
 ]
 
@@ -71,15 +108,10 @@ export function FeatureRows() {
         <section aria-labelledby="werkzeuge-titel" className="mx-auto max-w-6xl px-4 pb-24">
             <h2
                 id="werkzeuge-titel"
-                className="mx-auto max-w-[26ch] text-center text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+                className="mx-auto max-w-auto text-center text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
             >
                 Kurzübersicht über die enthaltenen Werkzeuge
             </h2>
-            <p className="mx-auto mt-4 max-w-[60ch] text-center text-pretty text-muted-foreground">
-                Vier Ansichten, die im Playground ineinandergreifen: der Datensatz vor
-                dem Training, die Kurven währenddessen, die Auswertung danach — und der
-                Link, mit dem das fertige Modell weitergeht.
-            </p>
 
             <div className="mt-16 space-y-16 lg:mt-20 lg:space-y-24">
                 {FEATURES.map((feature, index) => (
