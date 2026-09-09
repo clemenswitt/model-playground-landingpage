@@ -126,21 +126,19 @@ export function TaskCarousel() {
     }
 
     return (
-        <section aria-labelledby="aufgaben-titel" className="mx-auto max-w-6xl pb-24">
-            <div className="flex flex-wrap items-end justify-between gap-4 px-4">
-                <div>
-                    <h2
-                        id="aufgaben-titel"
-                        className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
-                    >
-                        Aufgabenvorschläge aus dem Material
-                    </h2>
-                    <p className="mt-4 max-w-[60ch] text-pretty text-muted-foreground">
-                        Zweiundzwanzig Aufgaben liegen in der Dokumentation, gegliedert
-                        nach der Frage, die sie stellen. Sechs davon als Einstieg — jede
-                        eigenständig, jede mit vorbereiteten Modellen.
-                    </p>
-                </div>
+        <section aria-labelledby="aufgaben-titel" className="mx-auto max-w-6xl pt-8 pb-24">
+            <div className="flex flex-wrap items-center justify-between gap-4 px-4">
+                {/* The size the overview's heading above carries, for the same
+                    reason: with the paragraph under it gone, the line has to
+                    stand as a heading on its own. It keeps the left edge of
+                    the track it opens, and the arrows take the other end of
+                    its line. */}
+                <h2
+                    id="aufgaben-titel"
+                    className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
+                >
+                    Lernmaterialien
+                </h2>
 
                 {/* Redundant by design: every card is reachable with Tab. The
                     buttons exist for the pointer, which has no such affordance
@@ -173,7 +171,7 @@ export function TaskCarousel() {
             <ul
                 ref={spur}
                 onScroll={messen}
-                className="karussell mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-4 px-4 py-2"
+                className="karussell mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-4 px-4 py-2"
             >
                 {EXERCISES.map(({ route, title, level, text }) => (
                     <li key={route} className="w-[17rem] shrink-0 snap-start sm:w-[19rem]">

@@ -105,15 +105,26 @@ const FEATURES = [
  */
 export function FeatureRows() {
     return (
-        <section aria-labelledby="werkzeuge-titel" className="mx-auto max-w-6xl px-4 pb-24">
+        <section aria-labelledby="werkzeuge-titel" className="mx-auto max-w-6xl px-4 pt-12 pb-24">
+            {/* The paragraph that used to stand under this line is gone, and
+                with it what marked the line as a heading. Two things do that
+                now. The size: a step under the hero's headline and a full step
+                over the row headings below, where at `2xl` it stood barely
+                half a step over them and read as one of them. And the room
+                around it: the section gives it about twice as much above as
+                below, which is what binds a heading to what it opens rather
+                than leaving it between two blocks. */}
             <h2
                 id="werkzeuge-titel"
-                className="mx-auto max-w-auto text-center text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+                className="text-center text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
             >
                 Kurzübersicht über die enthaltenen Werkzeuge
             </h2>
 
-            <div className="mt-16 space-y-16 lg:mt-20 lg:space-y-24">
+            {/* Less room under the heading than over it, and less than between
+                two rows: the heading opens the section, and the rows are what
+                stand apart from one another inside it. */}
+            <div className="mt-12 space-y-16 lg:mt-16 lg:space-y-24">
                 {FEATURES.map((feature, index) => (
                     <FeatureRow key={feature.image} {...feature} flipped={index % 2 === 1} />
                 ))}
