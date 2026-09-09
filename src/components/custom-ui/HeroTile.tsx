@@ -16,8 +16,10 @@ import { config } from "@/lib/config"
  * shows being assembled. It is laid on by {@link Screencast}, which every
  * recording on this page goes through — including the three in the overview
  * below — and which says there why a recording is two files rather than one.
+ * Here it runs once and then offers to run again: beside the first words of
+ * the page, a timelapse that repeats forever keeps taking the eye off them.
  *
- * @returns {JSX.Element} Link to the playground, wrapped around the tile.
+ * @returns {JSX.Element} The tile, with the link to the playground over it.
  */
 export function HeroTile() {
     const tile = useRef<HTMLDivElement>(null)
@@ -50,42 +52,39 @@ export function HeroTile() {
     }
 
     return (
-        <a
-            href={config.playgroundUrl}
-            aria-label="Playground öffnen"
-            className="mx-auto mt-14 block max-w-[1180px] rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        <div
+            ref={tile}
+            onPointerMove={track}
+            className="tile relative mx-auto mt-14 max-w-[1180px] overflow-hidden rounded-xl border bg-card"
         >
-            <div
-                ref={tile}
-                onPointerMove={track}
-                className="tile relative overflow-hidden rounded-xl border bg-card"
-            >
-                {/* Two shots of the same view; the colour scheme picks one.
-                    A `<picture>` switch would not do: it follows the system
-                    setting rather than the reader's own choice. */}
-                <img
-                    src="/hero-light.webp"
-                    alt="Der Model Playground mit einem Datensatzknoten und drei aufeinanderfolgenden Schichten auf der Zeichenfläche"
-                    width={2880}
-                    height={1800}
-                    loading="eager"
-                    decoding="async"
-                    className="block w-full dark:hidden"
-                />
-                <img
-                    src="/hero-dark.webp"
-                    alt="Der Model Playground im dunklen Erscheinungsbild mit einem Datensatzknoten und drei aufeinanderfolgenden Schichten"
-                    width={2880}
-                    height={1800}
-                    loading="eager"
-                    decoding="async"
-                    className="hidden w-full dark:block"
-                />
+            <img
+                src="/hero-light.webp"
+                alt="Der Model Playground mit einem Datensatzknoten und drei aufeinanderfolgenden Schichten auf der Zeichenfläche"
+                width={2880}
+                height={1800}
+                loading="eager"
+                decoding="async"
+                className="block w-full dark:hidden"
+            />
+            <img
+                src="/hero-dark.webp"
+                alt="Der Model Playground im dunklen Erscheinungsbild mit einem Datensatzknoten und drei aufeinanderfolgenden Schichten"
+                width={2880}
+                height={1800}
+                loading="eager"
+                decoding="async"
+                className="hidden w-full dark:block"
+            />
 
-                <Screencast base="/hero" />
+            <a
+                href={config.playgroundUrl}
+                aria-label="Playground öffnen"
+                className="absolute inset-0 rounded-xl outline-none focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-ring/50"
+            />
 
-                <div className="tile-sheen pointer-events-none absolute inset-0" />
-            </div>
-        </a>
+            <Screencast base="/hero" once />
+
+            <div className="tile-sheen pointer-events-none absolute inset-0" />
+        </div>
     )
 }

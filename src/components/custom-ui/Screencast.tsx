@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react"
+import { RotateCcw } from "lucide-react"
 import { useTheme } from "next-themes"
+
+import { Button } from "@/components/ui/button"
 
 /**
  * The two recordings of a pair, one per colour scheme.
@@ -54,14 +57,22 @@ const VARIANTS = [
  *   is the screenshot underneath that gives the corners their shape, and a
  *   video knows nothing of the radius of the picture it covers: without this
  *   its square corners would stand out beyond the rounded ones below.
- * @returns {JSX.Element} The layer holding both recordings.
+ * @param {boolean} [props.once] Run the recording a single time rather than in
+ *   a loop, and offer a button to run it again once it has. For the hero tile:
+ *   a timelapse that repeats forever beside the first words of the page pulls
+ *   the eye away from them for as long as the reader stays. The overview
+ *   further down is scrolled past rather than dwelt on, and keeps its loop.
+ * @returns {JSX.Element} The layer holding both recordings, and, where the
+ *   recording runs once, the button that starts it again.
  */
 export function Screencast({
     base,
     radius = "rounded-xl",
+    once = false,
 }: {
     base: string
     radius?: string
+    once?: boolean
 }) {
     const frame = useRef<HTMLDivElement>(null)
     /** The mounted `<video>` elements, by source. */
@@ -72,6 +83,12 @@ export function Screencast({
     const [motionAllowed, setMotionAllowed] = useState(false)
     /** Whether the recordings have come close enough to be worth fetching. */
     const [nearViewport, setNearViewport] = useState(false)
+    /** Whether a single run has finished and the button is to be shown. */
+    const [finished, setFinished] = useState(false)
+    // The same answer, where the watches below read it: they are set up once
+    // and would otherwise go on asking a recording that has had its one run to
+    // play again — and a browser answers that by starting it over.
+    const finishedRef = useRef(false)
 
     /**
      * Asks every mounted recording to run.
@@ -79,6 +96,7 @@ export function Screencast({
      * @returns {void}
      */
     const playAll = useCallback(() => {
+        if (finishedRef.current) return
         for (const player of players.current.values()) {
             player.play().catch(() => {
                 /* A refusal leaves the screenshot standing, which is fine. */
@@ -151,6 +169,32 @@ export function Screencast({
     }, [playAll, resolvedTheme])
 
     /**
+     * Notes that the single video run is over.
+     *
+     * @returns {void}
+     */
+    function finish() {
+        finishedRef.current = true
+        setFinished(true)
+    }
+
+    /**
+     * Resets both recordings back and runs them again.
+     *
+     * @returns {void}
+     */
+    function restart() {
+        finishedRef.current = false
+        setFinished(false)
+        for (const player of players.current.values()) {
+            player.currentTime = 0
+            player.play().catch(() => {
+                /* A refusal leaves the screenshot standing, which is fine. */
+            })
+        }
+    }
+
+    /**
      * Keeps hold of a mounted recording and starts it.
      *
      * @param {string} source The recording's basename in `public/`.
@@ -168,6 +212,7 @@ export function Screencast({
         // itself. `defaultMuted` is the property that writes the attribute.
         element.muted = true
         element.defaultMuted = true
+        if (finishedRef.current) return
         element.play().catch(() => {
             /* Below the fold there is nothing to play yet; the watch above
                comes back to it when it is on screen. */
@@ -175,34 +220,53 @@ export function Screencast({
     }
 
     return (
-        <div
-            ref={frame}
-            aria-hidden="true"
-            className={`absolute inset-0 overflow-hidden ${radius}`}
-        >
-            {/* Decorative throughout: what they show, the screenshot below
-                already says, and its `alt` says it in words. The poster is
-                that same screenshot, so the first frame replaces a picture
-                identical to it rather than a black rectangle. */}
-            {motionAllowed &&
-                nearViewport &&
-                VARIANTS.map(({ suffix, visibility }) => (
-                    <video
-                        key={suffix}
-                        ref={(element) => register(`${base}${suffix}`, element)}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="auto"
-                        poster={`${base}${suffix}.webp`}
-                        onCanPlay={playAll}
-                        className={`absolute inset-0 h-full w-full object-cover ${visibility}`}
-                    >
-                        <source src={`${base}${suffix}.mp4`} type="video/mp4" />
-                        <source src={`${base}${suffix}.webm`} type="video/webm" />
-                    </video>
-                ))}
-        </div>
+        <>
+            <div
+                ref={frame}
+                aria-hidden="true"
+                className={`pointer-events-none absolute inset-0 overflow-hidden ${radius}`}
+            >
+                {motionAllowed &&
+                    nearViewport &&
+                    VARIANTS.map(({ suffix, visibility }) => (
+                        <video
+                            key={suffix}
+                            ref={(element) =>
+                                register(`${base}${suffix}`, element)
+                            }
+                            autoPlay
+                            muted
+                            loop={!once}
+                            playsInline
+                            preload="auto"
+                            poster={`${base}${suffix}.webp`}
+                            onCanPlay={playAll}
+                            onEnded={once ? finish : undefined}
+                            className={`absolute inset-0 h-full w-full object-cover ${visibility}`}
+                        >
+                            <source
+                                src={`${base}${suffix}.mp4`}
+                                type="video/mp4"
+                            />
+                            <source
+                                src={`${base}${suffix}.webm`}
+                                type="video/webm"
+                            />
+                        </video>
+                    ))}
+            </div>
+
+            {once && finished && (
+                <Button
+                    type="button"
+                    size="sm"
+                    onClick={restart}
+                    className="absolute right-3 bottom-3 z-10 bg-foreground text-background shadow-sm hover:bg-foreground/90"
+                >
+                    <RotateCcw />
+                    Wiederholen
+                </Button>
+            )}
+        </>
     )
 }
