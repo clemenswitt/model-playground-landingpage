@@ -1,0 +1,17 @@
+# Ohne diese Datei kopiert `COPY . .` im Dockerfile das auf dem Host gebaute
+# node_modules über das im Image installierte -- die dortigen Binaries (esbuild,
+# rollup) sind für macOS gebaut und der Build im Linux-Container bricht ab.
+.git
+.gitignore
+node_modules
+dist
+*.tsbuildinfo
+npm-debug.log*
+Dockerfile*
+.dockerignore
+README.md
+_arbeit
+.claude
+.idea
+.vscode
+.DS_Store
