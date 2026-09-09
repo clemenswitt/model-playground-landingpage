@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react"
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight, ArrowUpRightSquare, ChevronLeft, ChevronRight, MoveUpRight } from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { config } from "@/lib/config"
 
 /** Difficulty, as the material itself grades it. */
@@ -13,43 +15,48 @@ type Level = "leicht" | "mittel" | "fortgeschritten"
  * The list is kept by hand. The material lives in another repository, private
  * and not yet published, so there is nothing to read at build time that would
  * not tie this build to a checkout of that one.
+ *
+ * Title, level and text are therefore copies, taken word for word from the
+ * article's front matter — `title`, `level` and `description`. Kept that way,
+ * a card can be checked against its source by comparing the two strings, and
+ * a rewrite over there is carried over here without being reworded twice.
  */
 const EXERCISES: { route: string; title: string; level: Level; text: string }[] = [
     {
         route: "/material/grundlagen/vollverbundenes-netz-ziffern",
         title: "Ein neuronales Netz für handgeschriebene Ziffern",
         level: "leicht",
-        text: "Ein vollverbundenes Netz auf MNIST, dem Datensatz handgeschriebener Ziffern. Vier Breiten der verdeckten Schicht werden über mehrere Läufe gemessen — und daran entschieden, welcher Unterschied belegt ist und welcher im Rauschen liegt.",
+        text: "Regeln für die Erkennung handgeschriebener Ziffern lassen sich von Hand formulieren, geraten aber an jeder Handschrift ins Wanken, die eine ihrer Annahmen verletzt. Ein neuronales Netz gewinnt die Unterscheidung stattdessen aus beschrifteten Beispielen. Der einfachste Aufbau dafür ist ein vollverbundenes Netz auf den eingeebneten Bildpunkten; offen bleibt, wie breit seine verdeckte Schicht sein muss. Wir konstruieren ein solches Netz auf dem MNIST-Datensatz, messen vier Breiten von keiner bis 64 Neuronen über je mehrere Läufe und entscheiden anhand der Spannen, welcher Unterschied belegt ist und welcher im Rauschen liegt.",
     },
     {
         route: "/material/grundlagen/netz-fuer-tabellendaten",
         title: "Ein neuronales Netz für Tabellendaten",
         level: "leicht",
-        text: "Bei Tabellendaten ist ein Beispiel eine Reihe benannter Zahlen; zwei vollverbundene Schichten genügen. Im Inferenzpanel verändern wir einzelne Maße des Iris-Datensatzes und finden heraus, an welchem die Zuordnung am stärksten hängt.",
+        text: "Bei Tabellendaten ist ein Beispiel eine Reihe benannter Zahlen statt eines Rasters von Bildpunkten. Am Iris-Datensatz bauen wir ein neuronales Netz auf, das mit zwei vollverbundenen Schichten auskommt. Mithilfe des Inferenzpanels verändern wir anschließend einzelne Merkmale und finden heraus, an welchem von ihnen die Zuordnung am stärksten hängt.",
     },
     {
-        route: "/material/aufbau/faltung-statt-einebnen",
+        route: "/material/modellstruktur/faltung-statt-einebnen",
         title: "Faltungsschicht statt Einebnen bei Farbfotos",
         level: "mittel",
-        text: "Auf Farbfotos versagt ein Netz, das die Bildpunkte sofort einebnet, nicht bloß graduell — in der Wahrheitsmatrix bleiben ganze Klassen leer. Flach gegen gefaltet auf CIFAR-10, bei festgehaltenen Trainingsparametern.",
+        text: "Ein Netz, das die Bildpunkte sofort einebnet und in vollverbundene Schichten gibt, lässt auf Farbfotos ganze Klassen in der Wahrheitsmatrix leer. Wir stellen auf CIFAR-10 und auf einem Zwei-Klassen-Fotodatensatz je ein flaches und ein gefaltetes Modell gegenüber, halten dabei alle Trainingsparameter fest und führen den Unterschied auf die beim Einebnen verlorene räumliche Anordnung der Bildpunkte zurück.",
     },
     {
-        route: "/material/einblick/eigene-fotos-gegen-modell",
+        route: "/material/vertiefung-bildverarbeitung/eigene-fotos-gegen-modell",
         title: "Eigene Fotos gegen ein auf sauberen Daten trainiertes Modell",
         level: "mittel",
-        text: "Ein Faltungsnetz auf Handzeichen-Fotos, trainiert bis zur fehlerfreien Wahrheitsmatrix. Dagegen halten wir selbst aufgenommene Bilder und sehen, wofür eine Testgenauigkeit überhaupt gilt.",
+        text: "Ein Modell, das jedes Testbild richtig zuordnet, sieht nach einem gelösten Problem aus. Wir trainieren ein Faltungsnetz auf Handzeichen-Fotos bis zur fehlerfreien Wahrheitsmatrix, halten dann selbst aufgenommene Bilder dagegen und zuletzt eine Eingabe, die zu keiner der drei Klassen gehört. Der Einbruch zeigt, wofür eine Testgenauigkeit überhaupt gilt und dass die Ausgabe eine unpassende Eingabe nicht als solche kennzeichnet.",
     },
     {
-        route: "/material/diagnose/ueberanpassung-bremsen",
-        title: "Überanpassung mit einer Dropout-Schicht bremsen",
+        route: "/material/modellevaluation/ueberanpassung-bremsen",
+        title: "Überanpassung mit einer Dropout-Schicht verringern",
         level: "mittel",
-        text: "Drei Modelle auf dem Beans-Datensatz, unterschieden allein durch die Dropout-Rate: keine, 0,5 und 0,8. Die Genauigkeit trennt sie nicht, der Abstand der Kurven und die Lage des Verlustminimums dagegen deutlich.",
+        text: "Die Werte eines Modells steigen auf den Trainingsdaten weiter, während sie auf den Testdaten stehen bleiben; diesem Auseinanderlaufen wirkt eine eigene Schicht entgegen. Wir messen drei Modelle ohne Dropout und mit den Raten 0,5 und 0,8 über je drei Läufe und erfassen dabei vier Größen statt einer. Die Genauigkeit trennt die Modelle nicht, der Abstand zwischen den Kurven und die Lage des Verlustminimums dagegen deutlich. Daraus ergibt sich, welche Rate brauchbar ist und warum die stärkere die Trainingskurve als Vergleichsgröße unbrauchbar macht.",
     },
     {
-        route: "/material/daten/einen-eigenen-datensatz-beurteilen",
+        route: "/material/datenarbeit/einen-eigenen-datensatz-beurteilen",
         title: "Einen eigenen Datensatz finden und dafür ein Modell bauen",
         level: "fortgeschritten",
-        text: "Datensatz und Aufbau sind hier nicht vorgegeben. Ein siebenteiliges Prüfprotokoll entscheidet, ob ein selbst gesuchter Datensatz taugt; der Aufbau wird vor der ersten Messung schriftlich begründet.",
+        text: "Datensatz und Aufbau sind hier nicht vorgegeben. Wir suchen einen eigenen Datensatz, prüfen ihn anhand eines siebenteiligen Protokolls auf Brauchbarkeit, von der ladbaren Vorschau bis zur Genauigkeit über der Grundrate, und leiten daraus einen Aufbau ab, der vor der ersten Messung schriftlich begründet wird. Drei Trainingsläufe entscheiden anschließend, ob Datensatz und Begründung getragen haben.",
     },
 ]
 
@@ -68,6 +75,33 @@ const OVERVIEW = "/material/uebersicht"
  */
 const CARD =
     "group relative flex h-full flex-col rounded-xl border p-5 text-left transition-colors hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+
+/**
+ * The size every card keeps, whatever it has to say.
+ *
+ * The texts are the material's own descriptions and differ by a factor of
+ * three in length. Left to themselves the longest would set the height of the
+ * track and every card next to it would follow, since they are laid out in a
+ * row and stretch to its tallest. Both heights are therefore fixed, and they
+ * are the ones the track measured when its texts were still written to fit —
+ * 348 and 308 pixels, rounded up to the half rem. What does not fit scrolls
+ * inside the card rather than pushing the section open.
+ */
+const KARTE = "h-[22rem] w-[17rem] shrink-0 snap-start sm:h-[19.5rem] sm:w-[19rem]"
+
+/**
+ * Keeps a click that ends on a card's scrollbar from opening the exercise.
+ *
+ * The scrollable text sits inside the link the card is made of. Pressing the
+ * thumb and letting go reaches that link as a click, so a reader who scrolls
+ * the text to its end would be navigated away by the same gesture.
+ *
+ * @param {React.MouseEvent} ereignis Click on its way up to the card's link.
+ */
+function leiste(ereignis: React.MouseEvent) {
+    const ziel = ereignis.target as HTMLElement
+    if (ziel.closest("[data-slot='scroll-area-scrollbar']")) ereignis.preventDefault()
+}
 
 /**
  * Exercise suggestions from the material area as a track of cards.
@@ -133,12 +167,15 @@ export function TaskCarousel() {
                     stand as a heading on its own. It keeps the left edge of
                     the track it opens, and the arrows take the other end of
                     its line. */}
-                <h2
-                    id="aufgaben-titel"
-                    className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
-                >
-                    Lernmaterialien
-                </h2>
+                <div className="flex items-center gap-3">
+                    <h2
+                        id="aufgaben-titel"
+                        className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
+                    >
+                        Lernmaterialien
+                    </h2>
+                    <Badge variant="outline" className="text-xl font-light">Preview</Badge>
+                </div>
 
                 {/* Redundant by design: every card is reachable with Tab. The
                     buttons exist for the pointer, which has no such affordance
@@ -171,17 +208,19 @@ export function TaskCarousel() {
             <ul
                 ref={spur}
                 onScroll={messen}
-                className="karussell mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-4 px-4 py-2"
+                className="karussell mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-4 px-4 py-2"
             >
                 {EXERCISES.map(({ route, title, level, text }) => (
-                    <li key={route} className="w-[17rem] shrink-0 snap-start sm:w-[19rem]">
+                    <li key={route} className={KARTE}>
                         <a href={`${config.docsUrl}${route}`} className={`${CARD} bg-card`}>
                             <span className="w-fit rounded-full border px-2 py-0.5 text-xs text-muted-foreground">
                                 <span className="sr-only">Schwierigkeit: </span>
                                 {level}
                             </span>
                             <h3 className="mt-3 font-medium">{title}</h3>
-                            <p className="mt-2 flex-1 text-sm text-muted-foreground">{text}</p>
+                            <ScrollArea type="hover" onClick={leiste} className="mt-2 -mr-3 min-h-0 flex-1 pr-3">
+                                <p className="text-sm text-muted-foreground">{text}</p>
+                            </ScrollArea>
                             <span className="mt-4 flex items-center gap-1.5 text-sm font-medium">
                                 Aufgabe öffnen
                                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -193,19 +232,15 @@ export function TaskCarousel() {
                 {/* The overview stands outside the list above: it has no
                     difficulty, and it closes the track rather than continuing
                     it. */}
-                <li className="w-[17rem] shrink-0 snap-start sm:w-[19rem]">
+                <li className={KARTE}>
                     <a href={`${config.docsUrl}${OVERVIEW}`} className={`${CARD} bg-muted/50`}>
-                        <h3 className="font-medium">Alle 22 Aufgaben</h3>
-                        <p className="mt-2 flex-1 text-sm text-muted-foreground">
-                            Fünf Schwerpunkte: die Bestandteile eines Netzes, die
-                            Entscheidungen an seiner Struktur, was im Inneren sichtbar
-                            wird, die Ursache stagnierender Werte und der Beitrag der
-                            Daten.
-                        </p>
-                        <span className="mt-4 flex items-center gap-1.5 text-sm font-medium">
-                            Übersicht öffnen
-                            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                        </span>
+                        {/* No text under it any more, so the line has the card
+                            to itself: it takes the space above the link and
+                            sits in the middle of it. */}
+                        <h3 className="flex flex-1 items-center justify-center text-center text-xl font-medium text-balance">
+                            <MoveUpRight />
+                            Alle Aufgaben
+                        </h3>
                     </a>
                 </li>
             </ul>
