@@ -57,7 +57,7 @@ export function Hero({ brand }: { brand: RefObject<HTMLDivElement | null> }) {
                             ]}
                         />
                     </span>
-                    <span className="mt-4 block">Direkt im Browser loslegen.</span>
+                    <span className="mt-4 block italic">Direkt im Browser loslegen.</span>
                 </p>
 
                 <div className="mt-11 flex flex-wrap items-center justify-center gap-3">

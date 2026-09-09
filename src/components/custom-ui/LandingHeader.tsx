@@ -57,10 +57,10 @@ export function LandingHeader({
                     className="ml-auto hidden items-center sm:flex"
                 >
                     <Button variant="ghost" size="sm" asChild>
-                        <a href={config.playgroundUrl}>Playground</a>
+                        <a href={config.playgroundUrl} target="_blank">Playground</a>
                     </Button>
                     <Button variant="ghost" size="sm" asChild>
-                        <a href={config.docsUrl}>Dokumentation</a>
+                        <a href={config.docsUrl} target="_blank">Dokumentation</a>
                     </Button>
                 </nav>
 

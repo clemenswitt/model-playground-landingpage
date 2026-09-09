@@ -9,7 +9,7 @@ const FEATURES = [
         alt: "Der Vorschaudialog des MNIST-Datensatzes mit Beschreibung, Klassenverteilung und einer Tabelle einzelner Ziffernbilder",
         motion: true,
         title: "Datensätze laden und untersuchen",
-        text: "Der Playground lädt jeden Datensatz, der auf HuggingFace liegt und eine Vorschau anbietet — vorbereitete Einträge wie MNIST, CIFAR-10 oder Iris ebenso wie selbst gesuchte. Vor dem ersten Training lässt sich ansehen, was tatsächlich ankommt: Beschreibung, Klassen, einzelne Beispiele. Ein Datensatz, der sich nicht laden lässt oder dessen Klassen ungleich verteilt sind, fällt so vor der ersten Messung auf und nicht danach.",
+        text: "Lernende greifen auf vier vorbereitete Datensätze zu oder suchen unter mehr als 500 000 Einträgen auf Hugging Face. Vor dem Hinzufügen zeigt die Vorschau Klassenverteilung, Form der Eingabe und einzelne Beispiele. Wer eigene Daten nutzen will, veröffentlicht sie auf Hugging Face und lädt sie von dort.",
     },
     {
         image: "metriken",
@@ -18,8 +18,8 @@ const FEATURES = [
         alt: "Das Panel der Trainingsmetriken im Reiter Accuracy, mit den Kurven für Trainings- und Validierungsgenauigkeit über 50 Epochen",
         motion: true,
         threeQuarters: true,
-        title: "Dem Training beim Laufen zusehen",
-        text: "Während des Trainings zeichnet der Playground Genauigkeit und Verlust auf, jeweils getrennt für Trainings- und Validierungsdaten. Beide stehen in einem eigenen Reiter, Epoche für Epoche, samt Fortschritt über die geplanten Durchläufe. Ob ein Modell noch lernt, bereits steht oder sich nur noch an die Trainingsdaten anpasst, ist damit während des Laufs abzulesen und nicht erst am Endwert.",
+        title: "Trainingsverläufe lesen",
+        text: "Während ein Lauf rechnet, füllen sich die Reiter für Genauigkeit und Verlust Epoche für Epoche, je eine Kurve für die Trainings- und eine für die Validierungsdaten. Am Verlauf lesen Lernende ab, ob ein Modell noch lernt, bereits gesättigt ist oder sich an die Trainingsdaten anpasst.",
     },
     {
         image: "wahrheitsmatrix",
@@ -27,8 +27,8 @@ const FEATURES = [
         height: 1318,
         alt: "Die Wahrheitsmatrix eines auf CIFAR-10 trainierten Modells, zehn Klassen von airplane bis truck, die Diagonale eingefärbt",
         wide: true,
-        title: "Wahrheitsmatrix und Inferenzpanel",
-        text: "Nach dem Training zeigt die Wahrheitsmatrix, welche Klasse mit welcher verwechselt wird; die Genauigkeit als einzelne Zahl sagt darüber nichts. Das Inferenzpanel legt daneben einzelne Beispiele durch das Modell und nennt die Wahrscheinlichkeit für jede Klasse. Dort lassen sich auch eigene Daten einsetzen — ein selbst aufgenommenes Foto hochladen oder bei Tabellendaten einzelne Merkmale verändern und sehen, woran die Zuordnung hängt.",
+        title: "Wahrheitsmatrix und Inferenzpanel auswerten",
+        text: "Nach dem Lauf steht in der Wahrheitsmatrix, welche Klassen sauber getroffen und welche als eine andere ausgegeben werden. Das Inferenzpanel schickt einzelne Beispiele durch das Modell und gibt je Klasse einen Prozentwert aus. Ein eigenes Bild oder veränderte Merkmalswerte zeigen, wie weit ein Modell trägt.",
         inset: {
             image: "inferenz",
             width: 600,
@@ -44,8 +44,8 @@ const FEATURES = [
         alt: "Die Zeichenfläche mit dem trainierten MNIST-Modell, darüber der Dialog „Modellstruktur teilen“ mit dem QR-Code und dem Link zu genau diesem Aufbau",
         motion: true,
         wide: true,
-        title: "Ein Modell als Link weitergeben",
-        text: "Ein Modell muss niemand nachbauen, um es zu bekommen: Der Playground schreibt den Aufbau samt gewähltem Datensatz in einen Link und legt denselben Link als QR-Code daneben. Wer ihn öffnet, findet die Struktur auf seiner eigenen Zeichenfläche wieder — im Seminarraum genügt der Code an der Wand. Weitergegeben wird dabei der Bauplan und nicht das trainierte Modell; die Gewichte stehen im Export, den dieselbe Leiste anbietet.",
+        title: "Modelle als Link weitergeben",
+        text: "Ein QR-Code im Teilen-Dialog gibt einen ganzen Modellaufbau weiter. Der Link daneben trägt Aufbau und gewählten Datensatz auf jede andere Zeichenfläche. Der Export legt Aufbau und trainierte Gewichte in zwei Dateien, aus denen sich die Gewichte in TensorFlow weiterverwenden lassen.",
     },
 ]
 
