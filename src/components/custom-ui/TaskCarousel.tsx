@@ -237,7 +237,7 @@ export function TaskCarousel() {
                         {/* No text under it any more, so the line has the card
                             to itself: it takes the space above the link and
                             sits in the middle of it. */}
-                        <h3 className="flex flex-1 items-center justify-center text-center text-xl font-medium text-balance">
+                        <h3 className="flex flex-1 items-center justify-center gap-3 text-center text-xl font-medium text-balance">
                             <MoveUpRight />
                             Alle Aufgaben
                         </h3>
